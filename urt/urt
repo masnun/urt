@@ -6,7 +6,7 @@ import socket
 import sys
 
 if len(sys.argv) < 3:
-    print("Invalid argument")
+    print("Please provide a host and port")
     sys.exit()
 
 HOST = sys.argv[1]
