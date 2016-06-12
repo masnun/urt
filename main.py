@@ -3,6 +3,13 @@ import random
 import socket
 import sys
 
+if len(sys.argv) < 3:
+    print("Invalid argument")
+    sys.exit()
+
+HOST = sys.argv[1]
+PORT = sys.argv[2]
+
 
 def get_server_details(host, port):
     # Data Place Holders
@@ -40,6 +47,10 @@ def get_server_details(host, port):
     return urt_server_details
 
 
+def handle_keypress(key):
+    raise urwid.ExitMainLoop()
+
+
 def update_ui(event_loop, user_data=None):
     player = urwid.Text(markup="Player", align='left')
     score = urwid.Text(markup="Score", align='left')
@@ -49,16 +60,20 @@ def update_ui(event_loop, user_data=None):
         urwid.AttrMap(urwid.Text(markup="Urban Terror Server Monitor", align='center'), 'title')
     ])
 
+    server_info_row = urwid.Columns([
+        urwid.AttrMap(urwid.Text(markup="{} - {}".format(HOST, PORT), align='center'), 'server')
+    ])
+
     header_row = urwid.Columns([
         urwid.AttrMap(player, 'header'),
         urwid.AttrMap(score, 'header'),
         urwid.AttrMap(ping, 'header'),
     ])
 
-    server_details = get_server_details("5.135.165.34", 27001)
+    server_details = get_server_details(HOST, int(PORT))
     players = server_details['players']
 
-    rows = [title_row, header_row]
+    rows = [urwid.Divider(" "), title_row, server_info_row, urwid.Divider(" "), header_row, ]
     for x in players:
         rows.append(urwid.Columns([
             urwid.Text(markup=x['name'], align='left'),
@@ -75,13 +90,15 @@ def update_ui(event_loop, user_data=None):
 
 
 palette = [
-    ('title', 'black, bold, standout', 'white'),
+    ('title', 'light green, bold', 'black'),
+    ('server', 'yellow, bold', 'black'),
     ('header', 'dark red, bold', 'white'),
 ]
 
 main_loop = urwid.MainLoop(
     widget=urwid.Filler(urwid.Text(markup="Urban Terror Monitor", align='center')),
-    palette=palette
+    palette=palette,
+    unhandled_input=handle_keypress
 )
 main_loop.set_alarm_in(0, update_ui)
 main_loop.run()
