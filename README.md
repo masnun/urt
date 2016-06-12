@@ -22,3 +22,6 @@ You might also need `sudo` privilege to install packages on some systems. Append
 
     urt 5.135.165.34 27001
 
+Press any key to exit. 
+
+<img src="ScreenShot.png" alt="Screen Shot" />
