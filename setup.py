@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='urt',
-    version='0.1.1',
+    version='0.1.2',
     description='Urban Terror Server Monitor',
     url='http://github.com/masnun/urt',
     author='Abu Ashraf Masnun',
