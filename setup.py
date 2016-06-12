@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='urt',
-    version='0.1.2',
+    version='0.1.3',
     description='Urban Terror Server Monitor',
     url='http://github.com/masnun/urt',
     author='Abu Ashraf Masnun',
@@ -13,5 +13,4 @@ setup(
         'urwid',
     ],
     scripts=['urt/urt'],
-    long_description=open("README.md").read()
 )
